@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love 💕</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg, #ff4da6, #ff99cc);
+    overflow: hidden;
+    color: white;
+}
+
+h1 {
+    margin-top: 50px;
+    font-size: 28px;
+}
+
+#meterContainer {
+    width: 80%;
+    height: 30px;
+    background: white;
+    margin: 30px auto;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#meter {
+    width: 0%;
+    height: 100%;
+    background: #ff0066;
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: #ff0066;
+    cursor: pointer;
+}
+
+#percentage {
+    font-size: 20px;
+    margin: 15px;
+}
+
+#finalScreen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    backdrop-filter: brightness(0.6);
+    color: white;
+}
+
+#message {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 25px;
+    border-radius: 15px;
+    max-width: 85%;
+    animation: fadeIn 2s ease forwards;
+}
+
+@keyframes explode {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(2); opacity: 0.9; background: white; }
+    100% { transform: scale(50); opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#explosion {
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    background: pink;
+    border-radius: 50%;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+</style>
+</head>
+
+<body>
+
+<h1>Press to Measure My Love 💗</h1>
+
+<div id="meterContainer">
+    <div id="meter"></div>
+</div>
+
+<p id="percentage">0%</p>
+
+<button onclick="startLove()">Measure Love 💓</button>
+
+<div id="explosion"></div>
+
+<div id="finalScreen">
+    <div id="message">
+        <h2>🎉 Happy Birthday Miss Taona Sibande 🎉</h2>
+        <p>
+            My love, today the world was blessed with someone truly beautiful.  
+            You make every day better just by being you.  
+            I love you more than words can say — infinitely and always. 💕
+        </p>
+    </div>
+</div>
+
+<script>
+let love = 0;
+let interval;
+
+function startLove() {
+    clearInterval(interval);
+    love = 0;
+    document.getElementById("meter").style.width = "0%";
+    document.getElementById("percentage").innerText = "0%";
+
+    interval = setInterval(() => {
+        love += 10;
+        document.getElementById("meter").style.width = (love / 10) + "%";
+        document.getElementById("percentage").innerText = love + "%";
+
+        if (love >= 1000) {
+            clearInterval(interval);
+            explode();
+        }
+    }, 40);
+}
+
+function explode() {
+    let boom = document.getElementById("explosion");
+    boom.style.display = "block";
+    boom.style.animation = "explode 0.8s forwards";
+
+    setTimeout(() => {
+        document.body.style.display = "none";
+        showFinal();
+    }, 800);
+}
+
+function showFinal() {
+    let final = document.getElementById("finalScreen");
+    final.style.backgroundImage = "url('https://raw.githubusercontent.com/SiabulaGift/Birthdayfun-/bdf541bd9f8f758783298dd1cd11c8585da428dd/IMG-20251231-WA0046.jpg')";
+    final.style.display = "flex";
+}
+</script>
+
+</body>
+  </html>
