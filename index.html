@@ -3,7 +3,6 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For My Love 💕</title>
-
 <style>
 body {
     margin: 0;
@@ -14,16 +13,27 @@ body {
     color: white;
 }
 
+#mainContent {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 h1 {
-    margin-top: 50px;
     font-size: 28px;
+    margin-top: 0;
 }
 
 #meterContainer {
     width: 80%;
     height: 30px;
     background: white;
-    margin: 30px auto;
+    margin: 20px auto;
     border-radius: 20px;
     overflow: hidden;
 }
@@ -32,6 +42,7 @@ h1 {
     width: 0%;
     height: 100%;
     background: #ff0066;
+    transition: width 0.04s linear;
 }
 
 button {
@@ -42,11 +53,32 @@ button {
     background: white;
     color: #ff0066;
     cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 #percentage {
     font-size: 20px;
     margin: 15px;
+}
+
+#explosion {
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    background: pink;
+    border-radius: 50%;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    pointer-events: none;
+}
+
+@keyframes explode {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(2); opacity: 0.9; background: white; }
+    100% { transform: translate(-50%, -50%) scale(50); opacity: 0; }
 }
 
 #finalScreen {
@@ -56,12 +88,14 @@ button {
     left: 0;
     width: 100%;
     height: 100%;
+    background-color: #ff4da6; /* fallback color */
     background-size: cover;
     background-position: center;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     color: white;
+    z-index: 20;
 }
 
 #overlay {
@@ -80,42 +114,22 @@ button {
     animation: fadeIn 2s ease forwards;
 }
 
-@keyframes explode {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(2); opacity: 0.9; background: white; }
-    100% { transform: scale(50); opacity: 0; }
-}
-
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-
-#explosion {
-    position: fixed;
-    width: 120px;
-    height: 120px;
-    background: pink;
-    border-radius: 50%;
-    display: none;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 </style>
 </head>
-
 <body>
 
-<h1>Press to Measure My Love 💗</h1>
-
-<div id="meterContainer">
-    <div id="meter"></div>
+<div id="mainContent">
+    <h1>Press to Measure My Love 💗</h1>
+    <div id="meterContainer">
+        <div id="meter"></div>
+    </div>
+    <p id="percentage">0%</p>
+    <button onclick="startLove()">Measure Love 💓</button>
 </div>
-
-<p id="percentage">0%</p>
-
-<button onclick="startLove()">Measure Love 💓</button>
 
 <div id="explosion"></div>
 
@@ -159,7 +173,8 @@ function explode() {
     boom.style.animation = "explode 0.8s forwards";
 
     setTimeout(() => {
-        document.body.style.display = "none";
+        boom.style.display = "none"; // hide explosion after animation
+        document.getElementById("mainContent").style.display = "none"; // hide main UI
         showFinal();
     }, 800);
 }
@@ -172,4 +187,4 @@ function showFinal() {
 </script>
 
 </body>
-</html>
+    </html>
